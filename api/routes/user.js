@@ -59,5 +59,17 @@ router.delete("/:id", async (req, res) => {
   }
 });
 
+// GET USER
+router.get("/:id", async (req, res) => {
+  try {
+    const user = await UserModel.findById(req.params.id);
+    const { password, ...others } = user._doc;
+
+    return res.status(200).json(others);
+  } catch (err) {
+    return res.status(500).json(err);
+  }
+});
+
 // export
 module.exports = router;
