@@ -69,5 +69,44 @@ router.delete("/:id", async (req, res) => {
   }
 });
 
+// GET SINGLE POST
+router.get("/find/:id", async (req, res) => {
+  try {
+    const singlePost = await PostModel.findById(req.params.id);
+
+    return res.status(200).json(singlePost);
+  } catch (err) {
+    return res.status(500).json(err);
+  }
+});
+
+// GET ALL POSTS || http://localhost:4000/api/posts?user=john || http://localhost:4000/api/posts?cat=music ||
+//localhost:4000/api/posts
+
+router.get("/", async (req, res) => {
+  const username = req.query.user;
+  const catName = req.query.cat;
+
+  try {
+    let posts;
+
+    if (username) {
+      posts = await PostModel.find({ username: username });
+    } else if (catName) {
+      posts = await PostModel.find({
+        categories: {
+          $in: [catName],
+        },
+      });
+    } else {
+      posts = await PostModel.find();
+    }
+
+    return res.status(200).json(posts);
+  } catch (err) {
+    return res.status(500).json(err);
+  }
+});
+
 // export
 module.exports = router;
