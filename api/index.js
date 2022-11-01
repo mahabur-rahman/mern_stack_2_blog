@@ -2,6 +2,8 @@ const express = require("express");
 const app = express();
 const colors = require("colors");
 const dotenv = require("dotenv");
+// ROUTE
+const authRoute = require("./routes/auth");
 
 // dotenv config
 dotenv.config();
@@ -10,6 +12,10 @@ const PORT = process.env.PORT || 5000;
 // connected to db
 const connectedDB = require("./db/connect");
 connectedDB();
+
+// middleware
+app.use(express.json());
+app.use("/api/auth", authRoute);
 
 // listen app
 app.listen(PORT, () => {
