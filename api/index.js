@@ -6,6 +6,7 @@ const dotenv = require("dotenv");
 const authRoute = require("./routes/auth");
 const userRoute = require("./routes/user");
 const postRoute = require("./routes/post");
+const categoryRoute = require("./routes/category");
 
 // dotenv config
 dotenv.config();
@@ -20,6 +21,7 @@ app.use(express.json());
 app.use("/api/auth", authRoute);
 app.use("/api/users", userRoute);
 app.use("/api/posts", postRoute);
+app.use("/api/categories", categoryRoute);
 
 // listen app
 app.listen(PORT, () => {
