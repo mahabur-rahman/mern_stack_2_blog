@@ -24,5 +24,30 @@ router.post("/", async (req, res) => {
   }
 });
 
+// UPDATE POST
+router.put("/:id", async (req, res) => {
+  try {
+    const post = await PostModel.findById(req.params.id);
+
+    if (post.username === req.body.username) {
+      try {
+        const updatedPost = await PostModel.findByIdAndUpdate(
+          req.params.id,
+          { $set: req.body },
+          { new: true }
+        );
+
+        return res.status(200).json(updatedPost);
+      } catch (err) {
+        return res.status(500).json(err);
+      }
+    } else {
+      return res.status(401).json("You can update only your post!");
+    }
+  } catch (err) {
+    return res.status(500).json(err);
+  }
+});
+
 // export
 module.exports = router;
