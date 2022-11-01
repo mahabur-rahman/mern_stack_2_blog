@@ -20,5 +20,16 @@ router.post("/", async (req, res) => {
   }
 });
 
+// GET ALL CATEGORY
+router.get("/", async (req, res) => {
+  try {
+    const cats = await CategoryModel.find();
+
+    return res.status(200).json(cats);
+  } catch (err) {
+    return res.status(500).json(err);
+  }
+});
+
 // export
 module.exports = router;
