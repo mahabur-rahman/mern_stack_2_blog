@@ -4,6 +4,7 @@ const colors = require("colors");
 const dotenv = require("dotenv");
 // ROUTE
 const authRoute = require("./routes/auth");
+const userRoute = require("./routes/user");
 
 // dotenv config
 dotenv.config();
@@ -16,6 +17,7 @@ connectedDB();
 // middleware
 app.use(express.json());
 app.use("/api/auth", authRoute);
+app.use("/api/users", userRoute);
 
 // listen app
 app.listen(PORT, () => {
