@@ -1,15 +1,32 @@
-import { useRef } from "react";
+import { useRef, useContext } from "react";
 import "./login.css";
 import axios from "axios";
+import { UserContext } from "../../context/Context";
 
 export default function Login() {
+  const { user, isFetching, error, dispatch } = useContext(UserContext);
+
   const usernameRef = useRef();
   const passRef = useRef();
 
   // formSubmit | API call
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+
+    dispatch({ type: "LOGIN_START" });
+
+    try {
+      const res = await axios.post("/auth/login", {
+        username: usernameRef.current.value,
+        password: passRef.current.value,
+      });
+
+      dispatch({ type: "LOGIN_SUCCESS", payload: res.data });
+    } catch (err) {
+      console.log(err);
+      dispatch({ type: "LOGIN_FAILURE" });
+    }
   };
 
   return (
@@ -33,6 +50,12 @@ export default function Login() {
         <button className="loginButton" type="submit">
           Login
         </button>
+
+        {error && (
+          <span style={{ color: "red", marginTop: "10px" }}>
+            Something went wrong!
+          </span>
+        )}
       </form>
       <button className="loginRegisterButton">Register</button>
     </div>
