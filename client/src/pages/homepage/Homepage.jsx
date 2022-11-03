@@ -15,7 +15,6 @@ export default function Homepage() {
       try {
         const res = await axios.get(`/posts` + search);
         setPosts(res.data);
-        console.log(res.data);
       } catch (err) {
         console.log(err);
       }
