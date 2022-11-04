@@ -2,6 +2,7 @@ const express = require("express");
 const app = express();
 const colors = require("colors");
 const multer = require("multer");
+const path = require("path");
 const dotenv = require("dotenv");
 // ROUTE
 const authRoute = require("./routes/auth");
@@ -36,6 +37,9 @@ app.post("/api/upload", upload.single("file"), (req, res) => {
 });
 
 // ######## END OF UPLOAD IMAGE  ########
+
+// TO SHOW IMAGE ON FRONTEND PART
+app.use("/images/", express.static(path.join(__dirname, "/images")));
 
 // middleware
 app.use(express.json());

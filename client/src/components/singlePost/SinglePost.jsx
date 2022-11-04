@@ -7,6 +7,7 @@ export default function SinglePost() {
   const [data, setData] = useState({});
   const location = useLocation();
   const postId = location.pathname.split("/")[2];
+  const PF = "http://localhost:4000/images/";
 
   useEffect(() => {
     const getSinglePost = async () => {
@@ -22,7 +23,7 @@ export default function SinglePost() {
     <div className="singlePost">
       <div className="singlePostWrapper">
         {data.photo && (
-          <img className="singlePostImg" src={data.photo} alt="" />
+          <img className="singlePostImg" src={PF + data.photo} alt="" />
         )}
         <h1 className="singlePostTitle">
           {data.title}
