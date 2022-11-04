@@ -5,6 +5,7 @@ import "./topbar.css";
 
 export default function Topbar() {
   const { user, dispatch } = useContext(UserContext);
+  const PF = "http://localhost:4000/images/";
 
   const logout = () => {
     dispatch({ type: "LOGOUT" });
@@ -44,11 +45,8 @@ export default function Topbar() {
           <Link className="link" to="/settings">
             <img
               className="topImg"
-              src={
-                user.profilePic ||
-                "https://images.unsplash.com/photo-1511367461989-f85a21fda167?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1631&q=80"
-              }
-              alt=""
+              src={PF + user.profilePic}
+              alt={user.username}
             />
           </Link>
         ) : (
